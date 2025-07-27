@@ -1,0 +1,218 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.poke-list {
+  @apply w-full max-w-7xl mx-auto p-6;
+  position: relative;
+  z-index: 1;
+}
+
+.poke-list h2 {
+  @apply text-3xl font-bold text-center mb-8;
+  background: linear-gradient(45deg, var(--pokemon-gold), var(--pokemon-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Press Start 2P', cursive;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.poke-list h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--pokemon-red), var(--pokemon-blue), var(--pokemon-yellow));
+  border-radius: 2px;
+  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.5);
+}
+
+.card-holder {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.card-holder::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.05) 2px, transparent 2px),
+    radial-gradient(circle at 80% 40%, rgba(255, 215, 0, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.05) 1.5px, transparent 1.5px);
+  background-size: 100px 100px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Navegación */
+.navigation-buttons {
+  @apply flex justify-center items-center gap-4 mb-8;
+  position: relative;
+}
+
+.nav-button {
+  @apply px-6 py-3 rounded-xl font-bold transition-all duration-300 transform hover:scale-105;
+  background: linear-gradient(45deg, var(--pokemon-green), var(--pokemon-cyan));
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  font-family: 'Orbitron', monospace;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-button:hover:not(:disabled) {
+  background: linear-gradient(45deg, var(--pokemon-cyan), var(--pokemon-purple));
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.4),
+    0 0 0 2px var(--pokemon-gold);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.page-info {
+  @apply px-4 py-2 rounded-lg font-bold;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: var(--pokemon-light);
+  font-family: 'Orbitron', monospace;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading state mejorado */
+.loading {
+  @apply text-center p-12;
+  color: var(--pokemon-light);
+  font-family: 'Orbitron', monospace;
+}
+
+.loading-spinner {
+  @apply mx-auto mb-4;
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 215, 0, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--pokemon-gold);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mensaje de error mejorado */
+.error-message {
+  @apply text-center p-8 rounded-2xl;
+  background: linear-gradient(145deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.05));
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(244, 67, 54, 0.3);
+  color: #ffebee;
+  font-family: 'Orbitron', monospace;
+  box-shadow: 0 8px 32px rgba(244, 67, 54, 0.2);
+}
+
+.error-message strong {
+  @apply block text-xl mb-2;
+  color: #ffcdd2;
+}
+
+.error-message p {
+  @apply mb-4;
+  color: #ffebee;
+}
+
+.retry-button {
+  @apply px-6 py-3 rounded-xl font-bold transition-all duration-300;
+  background: linear-gradient(45deg, var(--pokemon-red), #d32f2f);
+  color: white;
+  border: 2px solid transparent;
+  font-family: 'Orbitron', monospace;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.retry-button:hover {
+  background: linear-gradient(45deg, #d32f2f, var(--pokemon-red));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .poke-list {
+    padding: 1rem;
+  }
+  
+  .card-holder {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    @apply gap-4;
+  }
+  
+  .poke-list h2 {
+    @apply text-2xl mb-6;
+  }
+  
+  .navigation-buttons {
+    @apply flex-col gap-2;
+  }
+  
+  .nav-button {
+    @apply px-4 py-2 text-sm;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-holder {
+    grid-template-columns: 1fr;
+  }
+  
+  .poke-list h2 {
+    @apply text-xl mb-4;
+  }
+}
+
+/* Efectos de partículas flotantes */
+.poke-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 90% 20%, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 20% 90%, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
+  background-size: 200px 200px;
+  animation: float-particles 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes float-particles {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}

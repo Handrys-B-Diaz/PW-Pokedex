@@ -1,0 +1,220 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.carousel {
+  @apply relative w-full sm:h-96 md:h-[480px] lg:h-[80vh] overflow-hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  margin: 2rem 0;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.carousel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 80% 40%, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.1) 1.5px, transparent 1.5px);
+  background-size: 100px 100px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.carousel .track {
+  @apply flex flex-1 flex-row shrink-0;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel .track .carousel-slide {
+  @apply w-[100vw] sm:h-96 md:h-[480px] lg:h-[80vh] relative shrink-0;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel .track .carousel-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 2;
+}
+
+.carousel .track .carousel-slide img {
+  @apply w-full h-full object-cover;
+  filter: brightness(0.9) contrast(1.1);
+  transition: all 0.5s ease;
+}
+
+.carousel .track .carousel-slide:hover img {
+  filter: brightness(1.1) contrast(1.2) saturate(1.1);
+  transform: scale(1.05);
+}
+
+.carousel .track .carousel-slide .carousel-action {
+  @apply absolute w-96 p-6 rounded-3xl;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  transition: all 0.3s ease;
+}
+
+.carousel .track .carousel-slide .carousel-action:hover {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+  border-color: var(--pokemon-gold);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 2px var(--pokemon-gold);
+  transform: translate(-50%, -50%) scale(1.02);
+}
+
+.carousel .track .carousel-slide .carousel-action h1 {
+  @apply text-2xl font-bold mb-4 text-center;
+  background: linear-gradient(45deg, var(--pokemon-gold), var(--pokemon-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Press Start 2P', cursive;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+.carousel .track .carousel-slide .carousel-action p {
+  @apply text-sm leading-relaxed;
+  color: var(--pokemon-light);
+  font-family: 'Orbitron', monospace;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Controles del carrusel */
+.carousel-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-dot:hover,
+.carousel-dot.active {
+  background: var(--pokemon-gold);
+  border-color: var(--pokemon-yellow);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  transform: scale(1.2);
+}
+
+/* Botones de navegación */
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.carousel-nav:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: var(--pokemon-gold);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav.prev {
+  left: 20px;
+}
+
+.carousel-nav.next {
+  right: 20px;
+}
+
+/* Indicadores de progreso */
+.carousel-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 5;
+}
+
+.carousel-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pokemon-gold), var(--pokemon-yellow));
+  width: 0%;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Efectos de partículas */
+.carousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 90% 20%, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 20% 90%, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
+  background-size: 200px 200px;
+  animation: sparkle 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
