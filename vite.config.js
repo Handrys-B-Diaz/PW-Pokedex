@@ -6,5 +6,5 @@ export default defineConfig({
   plugins: [
     react()
   ],
-  base: 'https://handrys-b-diaz.github.io/Pokedex-2025',
+  base: '/PW-Pokedex/',
 })
